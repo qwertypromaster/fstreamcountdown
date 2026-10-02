@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Сколько осталось до стрима?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Pacifico&family=Creepster&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#15171c;--fg:#eceef2;--card:#1f2229;--line:#2b2f38;--muted:#9aa1ad;--acc:#6ea8fe;--fill:#6ea8fe;--num:#fff;--glow:none;--hf:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+body{margin:0;min-height:100vh;color:var(--fg);background:var(--bg) fixed;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+body[data-theme=winter]{--bg:radial-gradient(700px 320px at 15% 0,rgba(125,211,252,.55),transparent),radial-gradient(600px 320px at 90% 8%,rgba(196,181,253,.45),transparent),linear-gradient(180deg,#d8ecfb,#f5fbff);--fg:#15304a;--card:linear-gradient(160deg,rgba(255,255,255,.95),rgba(224,240,255,.8));--line:#bcd8ee;--muted:#55738f;--acc:#3b8fd9;--fill:linear-gradient(90deg,#7dd3fc,#3b8fd9,#a78bfa);--num:#12385f}
+body[data-theme=halloween]{--bg:radial-gradient(420px 420px at 82% 8%,rgba(255,190,90,.55),transparent 65%),linear-gradient(180deg,#0f0618,#2a0f3d 55%,#5a1f0a);--fg:#ffe9d0;--card:linear-gradient(160deg,rgba(60,20,80,.85),rgba(30,10,40,.85));--line:#6b2f8f;--muted:#e0aa80;--acc:#ff7a18;--fill:linear-gradient(90deg,#ff7a18,#ffb347,#a855f7);--num:#ffa64d;--glow:0 0 14px rgba(255,122,24,.6);--hf:'Creepster',cursive}
+body[data-theme=bday]{--bg:radial-gradient(500px 300px at 10% 5%,rgba(255,126,182,.5),transparent),radial-gradient(500px 300px at 95% 90%,rgba(62,207,142,.45),transparent),linear-gradient(135deg,#fff0f6,#eafff4);--fg:#3a2a33;--card:linear-gradient(160deg,#fff,#fff4f9);--line:#f6c6da;--muted:#7a5a68;--acc:#e0407f;--fill:linear-gradient(90deg,#ff7eb6,#ffd6e8,#3ecf8e);--num:#d63384}
+body[data-theme=vice]{--bg:linear-gradient(#1a0b3d,#5b1a8f 45%,#ff3d9a 78%,#ffb347);--fg:#fff;--card:rgba(20,5,50,.6);--line:#00f0ff;--muted:#ffd0ee;--acc:#00f0ff;--fill:linear-gradient(90deg,#ff2d95,#ffb347,#00f0ff);--num:#fff;--glow:0 0 8px #ff2d95,0 0 22px #ff2d95;--hf:'Bungee',sans-serif}
+body[data-theme=doom]{--bg:radial-gradient(600px 400px at 50% 0,rgba(120,0,0,.45),transparent),#050000;--fg:#c40000;--card:linear-gradient(160deg,#160000,#080000);--line:#4a0000;--muted:#8a0000;--acc:#e00000;--fill:linear-gradient(90deg,#500000,#e00000);--num:#ff1a1a;--glow:0 0 12px #f00;--hf:'Creepster',cursive}
+body[data-theme=april]{--bg:conic-gradient(from 20deg at 30% 30%,#ffe14d,#a56bff,#43e6a0,#ff6b9a,#ffe14d);--fg:#8e7a2a;--card:rgba(255,235,120,.35);--line:rgba(120,90,200,.25);--muted:#a08a3a;--acc:#a56bff;--fill:linear-gradient(90deg,#ffe14d,#a56bff);--num:#9c8420}
+body[data-theme=anniv]{--bg:radial-gradient(600px 400px at 50% 0,rgba(255,215,0,.35),transparent),linear-gradient(160deg,#12063a,#3b1470 55%,#7a2d8f);--fg:#fff3d6;--card:linear-gradient(160deg,rgba(255,215,120,.16),rgba(255,255,255,.05));--line:rgba(255,215,120,.45);--muted:#f0d9a0;--acc:#ffd166;--fill:linear-gradient(90deg,#ffb703,#ffe08a,#f472b6);--num:#ffe08a;--glow:0 0 14px rgba(255,200,80,.6)}
+body[data-theme=fri13]{--bg:radial-gradient(500px 300px at 50% 0,rgba(180,220,200,.25),transparent),linear-gradient(180deg,#070c0d,#132022 60%,#0a1112);--fg:#c5d8d2;--card:linear-gradient(160deg,rgba(30,50,50,.85),rgba(10,20,20,.85));--line:#2f4a48;--muted:#7f9c96;--acc:#7fd1b9;--fill:linear-gradient(90deg,#1f4d47,#7fd1b9);--num:#dff5ee;--glow:0 0 12px rgba(127,209,185,.45);--hf:'Creepster',cursive}
+body[data-theme=black]{--bg:repeating-linear-gradient(-45deg,#000 0 26px,#141100 26px 52px);--fg:#fff;--card:linear-gradient(160deg,#1a1a1a,#000);--line:#ffd400;--muted:#d9c25a;--acc:#ffd400;--fill:repeating-linear-gradient(-45deg,#ffd400 0 14px,#111 14px 28px);--num:#ffd400;--hf:'Bungee',sans-serif}
+body[data-theme=blood]{--bg:#0a0000;--fg:#ffd0d0;--card:rgba(20,0,0,.6);--line:#7a0000;--muted:#ff8a8a;--acc:#ff2020;--fill:linear-gradient(90deg,#500000,#ff0000);--num:#fff;--glow:0 0 14px #f00;--hf:'Creepster',cursive}
+body[data-theme=end]{--bg:radial-gradient(700px 500px at 50% 45%,rgba(255,255,255,.55),transparent),linear-gradient(160deg,#ffd9ea,#ff9fcd 55%,#ff70b3);--fg:#5a1236;--card:rgba(255,255,255,.55);--line:rgba(255,255,255,.85);--muted:#8a2a5c;--acc:#ff4fa3;--fill:#ff4fa3;--num:#7a0f45;--glow:none;--hf:'Pacifico',cursive}
+main{position:relative;z-index:3;max-width:960px;margin:0 auto;padding:56px 18px 70px;display:flex;flex-direction:column;align-items:center;gap:28px}
+.head{text-align:center}
+h1{font-family:var(--hf);font-size:clamp(26px,5.5vw,50px);font-weight:700;line-height:1.15;margin:0 0 8px;color:var(--num);text-shadow:var(--glow)}
+body[data-theme=doom] h1{animation:flick 3s infinite;letter-spacing:.06em}
+@keyframes flick{0%,90%,100%{opacity:1}92%{opacity:.3}94%{opacity:1}96%{opacity:.5}}
+.sub{margin:0;color:var(--muted);font-size:17px}
+body[data-theme=vice] .sub{font-family:'Pacifico',cursive;font-size:24px;color:#fff;text-shadow:0 0 10px #00f0ff}
+.clock{margin-top:10px;color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.big{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;width:100%}
+.unit,.bar-wrap,.tot div{background:var(--card);border:1px solid var(--line);border-radius:14px}
+.unit{text-align:center;padding:16px 8px 12px}
+.unit b{display:block;font-size:clamp(28px,4.5vw,40px);font-weight:700;font-variant-numeric:tabular-nums;color:var(--num);text-shadow:var(--glow)}
+.unit span{font-size:13px;color:var(--muted)}
+.bar-wrap{width:100%;padding:20px}
+.bar{height:22px;border-radius:999px;background:var(--line);overflow:hidden}
+.fill{height:100%;width:0;min-width:10px;border-radius:999px;background:var(--fill)}
+.pct{text-align:center;font-size:24px;font-weight:700;margin-top:12px;font-variant-numeric:tabular-nums;color:var(--num);text-shadow:var(--glow)}
+.meta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-top:8px;gap:10px;flex-wrap:wrap}
+h2{font-size:15px;margin:4px 0 0;color:var(--muted);font-weight:600}
+.tot{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;width:100%}
+.tot div{padding:12px 16px}
+.tot b{display:block;font-size:20px;font-variant-numeric:tabular-nums;word-break:break-all;color:var(--num)}
+.tot span{font-size:13px;color:var(--muted)}
+body[data-theme=april] main{filter:blur(1.4px)}
+body[data-theme=april] .head,body[data-theme=april] .unit,body[data-theme=april] .tot div{transform:rotate(-1.4deg)}
+body[data-theme=april] .unit:nth-child(2n),body[data-theme=april] .tot div:nth-child(2n){transform:rotate(1.6deg) scaleX(-1)}
+#blood,#vig,#fin{display:none;position:fixed}
+body[data-theme=blood] #blood,body[data-theme=blood] #vig{display:block}
+body[data-theme=blood] #fin{display:flex}
+body[data-theme=blood] main{z-index:6}
+#blood{top:0;left:0;width:100%;height:0;z-index:4;pointer-events:none;background:linear-gradient(#3a0000,#8b0000 50%,#d00000);box-shadow:0 0 60px #f00;animation:flick 2.3s infinite}
+#blood::after{content:'';position:absolute;top:100%;left:0;width:100%;height:64px;background:radial-gradient(ellipse 10px 44px at 50% 0,#9b0000 92%,transparent) 0 0/97px 64px repeat-x,radial-gradient(ellipse 7px 28px at 50% 0,#c40000 92%,transparent) 30px 0/131px 64px repeat-x,radial-gradient(ellipse 12px 56px at 50% 0,#7a0000 92%,transparent) 70px 0/173px 64px repeat-x}
+#vig{inset:0;z-index:5;pointer-events:none;background:radial-gradient(circle,transparent 35%,rgba(140,0,0,.85));animation:beat 1s infinite}
+@keyframes beat{0%,100%{opacity:.35}15%{opacity:1}30%{opacity:.5}45%{opacity:1}}
+#fin{inset:0;z-index:12;background:#000;opacity:0;align-items:center;justify-content:center;pointer-events:none}
+#fin span{font-family:'Creepster',cursive;font-size:clamp(44px,12vw,140px);color:#d00000;text-shadow:0 0 30px #f00;opacity:0;transition:opacity .3s;letter-spacing:.08em;text-align:center}
+body[data-theme=blood] .f{z-index:5}
+#ecl,#flash{display:none;position:fixed;pointer-events:none}
+body[data-theme=blood] #ecl,body[data-theme=blood] #flash{display:block}
+#ecl{left:50%;top:50%;width:min(78vmin,620px);aspect-ratio:1;z-index:5;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,#000 56%,#ff3b00 58%,rgba(255,0,0,.55) 64%,rgba(120,0,0,.25) 72%,transparent 78%);animation:ecl 1.2s infinite}
+@keyframes ecl{0%,100%{transform:translate(-50%,-50%) scale(1)}15%,45%{transform:translate(-50%,-50%) scale(1.07)}30%{transform:translate(-50%,-50%) scale(1.02)}}
+#flash{inset:0;z-index:11;background:#f00;opacity:0}
+body[data-theme=blood] h1{animation:glitch 1.6s infinite;letter-spacing:.05em}
+@keyframes glitch{0%,88%,100%{text-shadow:0 0 14px #f00;transform:none}90%{text-shadow:-4px 0 #0ff,4px 0 #f00;transform:skewX(-8deg)}94%{text-shadow:4px 0 #0ff,-4px 0 #f00;transform:skewX(6deg) translateX(6px)}}
+body[data-theme=blood] .unit,body[data-theme=blood] .bar-wrap,body[data-theme=blood] .tot div{border-color:#c40000;box-shadow:0 0 20px rgba(255,0,0,.45),inset 0 0 20px rgba(120,0,0,.5)}
+body[data-theme=blood] .fill{box-shadow:0 0 22px #f00}
+body::before,body::after{content:'';position:fixed;left:0;right:0;pointer-events:none;z-index:1;display:none}
+body[data-theme=winter]::before{display:block;bottom:0;height:110px;background:radial-gradient(ellipse 45% 100% at 15% 100%,#fff 62%,transparent 63%),radial-gradient(ellipse 55% 100% at 60% 100%,#eef7ff 62%,transparent 63%),radial-gradient(ellipse 40% 100% at 100% 100%,#fff 62%,transparent 63%)}
+body[data-theme=winter] .unit,body[data-theme=winter] .bar-wrap{box-shadow:0 8px 30px rgba(59,143,217,.22)}
+body[data-theme=halloween]::before{display:block;bottom:0;height:200px;background:radial-gradient(ellipse 60% 100% at 30% 100%,rgba(168,85,247,.4),transparent),radial-gradient(ellipse 50% 100% at 80% 100%,rgba(255,122,24,.35),transparent)}
+body[data-theme=halloween] .unit,body[data-theme=halloween] .bar-wrap,body[data-theme=halloween] .tot div{box-shadow:0 0 18px rgba(255,122,24,.28)}
+body[data-theme=bday]::before{display:block;top:0;bottom:0;opacity:.4;background-image:radial-gradient(#ff7eb6 3px,transparent 4px),radial-gradient(#3ecf8e 3px,transparent 4px),radial-gradient(#ffd166 2.5px,transparent 3.5px);background-size:90px 90px,130px 130px,70px 70px;background-position:0 0,40px 60px,20px 30px}
+body[data-theme=anniv]::before{display:block;top:0;bottom:0;opacity:.55;background-image:radial-gradient(#ffd166 1.5px,transparent 2px),radial-gradient(#fff 1px,transparent 1.5px);background-size:110px 110px,70px 70px;background-position:0 0,35px 45px}
+body[data-theme=anniv] .unit,body[data-theme=anniv] .bar-wrap{border-color:rgba(255,215,120,.6);box-shadow:0 0 22px rgba(255,200,80,.25)}
+body[data-theme=fri13]::before{display:block;top:0;bottom:0;background:radial-gradient(circle at 82% 12%,rgba(235,250,244,.9) 0 34px,rgba(180,230,210,.25) 36px,transparent 90px),linear-gradient(transparent 70%,rgba(180,220,205,.18))}
+body[data-theme=black]::before{display:block;top:0;height:16px;background:repeating-linear-gradient(-45deg,#ffd400 0 14px,#000 14px 28px)}
+body[data-theme=black]::after{display:block;bottom:0;height:16px;background:repeating-linear-gradient(-45deg,#ffd400 0 14px,#000 14px 28px)}
+body[data-theme=doom]::before{display:block;top:0;bottom:0;background:radial-gradient(circle at 50% 120%,rgba(170,0,0,.5),transparent 60%),radial-gradient(circle,transparent 45%,rgba(0,0,0,.85))}
+body[data-theme=vice] .unit,body[data-theme=vice] .bar-wrap{border-color:#00f0ff;box-shadow:0 0 18px rgba(0,240,255,.45),inset 0 0 14px rgba(255,45,149,.25)}
+.gone{animation:crumble 1.4s ease-in forwards;pointer-events:none}
+@keyframes crumble{0%{transform:none;opacity:1}15%{transform:translate(4px,2px) rotate(2deg)}30%{transform:translate(-5px,3px) rotate(-3deg);filter:contrast(2)}100%{transform:translateY(60vh) rotate(25deg);opacity:0;filter:blur(4px)}}
+body[data-theme=blood] .gone{display:none}
+body[data-theme=blood] main{min-height:100vh;justify-content:center}
+#msg{display:none;position:fixed;left:0;right:0;bottom:9vh;z-index:7;text-align:center;font-family:'Creepster',cursive;font-size:clamp(22px,5vw,48px);color:#ff2a00;text-shadow:0 0 18px #f00;letter-spacing:.06em;pointer-events:none;padding:0 12px}
+body[data-theme=blood] #msg{display:block}
+body[data-theme=end] .sub,body[data-theme=end] .clock,body[data-theme=end] .bar-wrap,body[data-theme=end] h2,body[data-theme=end] .tot{display:none}
+body[data-theme=end] .gone{animation:none;opacity:1;filter:none;transform:none}
+body[data-theme=end] main{min-height:100vh;justify-content:center}
+body[data-theme=end] .head{position:fixed;top:9vh;left:0;right:0;padding:0 14px}
+body[data-theme=end] h1{font-size:clamp(34px,8vw,84px);font-weight:400}
+body[data-theme=end] .unit{box-shadow:0 10px 40px rgba(255,79,163,.35);backdrop-filter:blur(6px)}
+#endbot{display:none;position:fixed;left:0;right:0;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:7;text-align:center;font-size:13px;letter-spacing:.04em;color:var(--muted);pointer-events:none}
+body[data-theme=end] #endbot{display:block}
+#lock{position:fixed;top:calc(62px + env(safe-area-inset-top,0px));right:12px;z-index:20;width:min(280px,calc(100vw - 24px));padding:16px;border-radius:14px;background:var(--card);color:var(--fg);border:1px solid var(--line);display:none;font-size:14px;font-family:system-ui,sans-serif;text-shadow:none}
+#lock.open{display:block}
+#lock input{width:100%;margin-top:10px;padding:8px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--fg);font:inherit}
+#lock button{margin-top:8px;padding:8px 12px;border-radius:8px;border:0;background:var(--acc);color:#000;font-weight:700;cursor:pointer}
+#cerr{color:#f66;font-size:12px;min-height:14px;margin-top:6px}
+#gear2{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:20;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:20px;cursor:pointer}
+#tp{position:fixed;top:calc(62px + env(safe-area-inset-top,0px));left:12px;z-index:20;width:min(360px,calc(100vw - 24px));max-height:80vh;overflow:auto;padding:12px;border-radius:14px;background:var(--card);color:var(--fg);border:1px solid var(--line);display:none;font:12px system-ui,sans-serif;text-shadow:none}
+#tp.open{display:block}
+#tp h3{margin:0 0 10px;font-size:13px}
+.tr{margin-bottom:9px}.th{display:flex;justify-content:space-between}.th b{font-weight:700}
+.tb{height:7px;border-radius:99px;background:var(--line);overflow:hidden;margin:3px 0}
+.tb i{display:block;height:100%;background:var(--acc);border-radius:99px}
+.tb.done i{background:var(--muted)}
+.td{font-size:11px;color:var(--muted)}
+body[data-theme=winter] h1::before{content:'❄️ ⛄ '}body[data-theme=winter] h1::after{content:' 🎄 ❄️'}
+body[data-theme=halloween] h1::before{content:'🎃 🦇 '}body[data-theme=halloween] h1::after{content:' 👻 🎃'}
+body[data-theme=bday] h1::before{content:'🎂 🎈 '}body[data-theme=bday] h1::after{content:' 🎁 🎉'}
+body[data-theme=anniv] h1::before{content:'✨ 🥂 '}body[data-theme=anniv] h1::after{content:' 🎉 ✨'}
+body[data-theme=fri13] h1::before{content:'🌑 🕸️ '}body[data-theme=fri13] h1::after{content:' 🕷️ 🌑'}
+body[data-theme=black] h1::before{content:'🏷️ 💸 '}body[data-theme=black] h1::after{content:' 🛒 🏷️'}
+body[data-theme=vice] h1::before{content:'🌴 🚗 '}body[data-theme=vice] h1::after{content:' 🕶️ 🌴'}
+.facts{width:100%;padding:18px 20px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.facts h3{margin:0 0 12px;font-family:var(--hf);font-size:clamp(18px,3vw,26px);color:var(--num);text-shadow:var(--glow);font-weight:700}
+.facts h4{margin:16px 0 8px;font-size:14px;color:var(--muted);font-weight:700}
+.facts ul{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:14px}
+.facts li::before{content:'•';display:inline-block;width:1.6em;color:var(--acc)}
+.facts b{color:var(--num)}
+.facts .sh{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 18px}
+.facts .tr{margin-bottom:6px}.facts .th{font-size:12px}.facts .tb{height:6px}
+body[data-theme=winter] .facts{border-color:#a9d3f2;box-shadow:0 8px 30px rgba(59,143,217,.2)}
+body[data-theme=halloween] .facts{box-shadow:0 0 20px rgba(255,122,24,.3)}
+body[data-theme=bday] .facts{border:2px dashed #ff7eb6}
+body[data-theme=anniv] .facts{border-color:rgba(255,215,120,.6);box-shadow:0 0 22px rgba(255,200,80,.25)}
+body[data-theme=fri13] .facts{border-color:#3f6660;box-shadow:0 0 16px rgba(127,209,185,.25)}
+body[data-theme=black] .facts{border:2px solid #ffd400}
+body[data-theme=vice] .facts{border-color:#00f0ff;box-shadow:0 0 18px rgba(0,240,255,.45),inset 0 0 14px rgba(255,45,149,.25)}
+body[data-theme=doom] .facts{border-color:#7a0000;box-shadow:0 0 18px rgba(200,0,0,.3)}
+body[data-theme=end] .facts{display:none}
+body[data-theme=winter] .facts h3::before{content:'❄️ '}body[data-theme=winter] .facts h3::after{content:' ❄️'}body[data-theme=winter] .facts li::before{content:'❄️'}
+body[data-theme=halloween] .facts h3::before{content:'🎃 '}body[data-theme=halloween] .facts h3::after{content:' 🎃'}body[data-theme=halloween] .facts li::before{content:'🦇'}
+body[data-theme=bday] .facts h3::before{content:'🎂 '}body[data-theme=bday] .facts h3::after{content:' 🎉'}body[data-theme=bday] .facts li::before{content:'🎈'}
+body[data-theme=anniv] .facts h3::before{content:'✨ '}body[data-theme=anniv] .facts h3::after{content:' ✨'}body[data-theme=anniv] .facts li::before{content:'✨'}
+body[data-theme=fri13] .facts h3::before{content:'🕸️ '}body[data-theme=fri13] .facts h3::after{content:' 🕷️'}body[data-theme=fri13] .facts li::before{content:'🕸️'}
+body[data-theme=black] .facts h3::before{content:'🏷️ '}body[data-theme=black] .facts h3::after{content:' 🛒'}body[data-theme=black] .facts li::before{content:'🏷️'}
+body[data-theme=vice] .facts h3::before{content:'🌴 '}body[data-theme=vice] .facts h3::after{content:' 🌴'}body[data-theme=vice] .facts li::before{content:'🌴'}
+#openG,.gb{padding:10px 16px;border-radius:10px;border:0;background:var(--acc);color:#000;font:700 14px system-ui,sans-serif;cursor:pointer}
+.gb{display:block;width:100%;margin:8px 0;text-align:left}
+#gm{display:none;position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.6);align-items:center;justify-content:center}
+#gm.open{display:flex}
+.gbox{width:min(360px,94vw);max-height:92vh;overflow:auto;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line);color:var(--fg);font-family:system-ui,sans-serif;backdrop-filter:blur(14px);text-shadow:none}
+.gtop{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+#gx{border:0;background:transparent;color:var(--fg);font-size:20px;cursor:pointer}
+.gmsg{text-align:center;margin:10px 0;font-size:15px}#sT{font-size:36px;font-weight:800;font-variant-numeric:tabular-nums}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mc{aspect-ratio:1;font-size:28px;border-radius:10px;border:1px solid var(--line);background:rgba(127,127,127,.25);color:var(--fg);cursor:pointer}
+.mc[data-ok]{background:var(--acc)}
+@keyframes hud{50%{box-shadow:0 0 26px rgba(125,255,180,.4),inset 0 0 30px rgba(0,0,0,.6)}}
+#advBtn{display:none;margin:14px auto 0;padding:8px 14px;border-radius:8px;border:1px solid #7dffb4;background:rgba(0,0,0,.4);color:#7dffb4;font:700 12px 'Courier New',monospace;letter-spacing:.18em;cursor:pointer;text-shadow:0 0 8px #22ff88;animation:hud 2.4s ease-in-out infinite}
+#advBtn.gone{animation:crumble 1.4s ease-in forwards}
+body.advok #advBtn{display:block}
+body[data-theme=end] #advBtn,body[data-theme=blood] #advBtn{display:none!important}
+body.adv .bar{display:none}
+#zwrap{display:none;position:relative;padding:12px;border-radius:10px;border:1px solid rgba(125,255,180,.4);background:linear-gradient(180deg,rgba(0,12,6,.85),rgba(0,0,0,.6));font-family:'Courier New',monospace;color:#7dffb4;box-shadow:0 0 18px rgba(125,255,180,.18),inset 0 0 30px rgba(0,0,0,.6);animation:hud 3s ease-in-out infinite}
+body.adv #zwrap{display:block}
+#zwrap::before,#zwrap::after{content:'';position:absolute;width:16px;height:16px;border:2px solid #7dffb4}
+#zwrap::before{top:-2px;left:-2px;border-right:0;border-bottom:0}#zwrap::after{bottom:-2px;right:-2px;border-left:0;border-top:0}
+#zc{display:block;width:100%;height:70px;border-radius:6px;background:repeating-linear-gradient(0deg,rgba(125,255,180,.06) 0 1px,transparent 1px 3px),#03100a}
+.zctl{display:flex;gap:8px;align-items:center;margin-top:10px}.zctl input{flex:1;accent-color:#7dffb4}
+.zctl button{width:30px;height:28px;border-radius:6px;border:1px solid #7dffb4;background:transparent;color:#7dffb4;font:700 16px monospace;cursor:pointer}
+#zl{font:12px monospace;min-width:90px;text-align:right}
+#zs{font-size:12px;margin-top:8px;line-height:1.6;white-space:pre-wrap;word-break:break-all}
+body.adv .pct{font-family:'Courier New',monospace;font-size:clamp(13px,2.7vw,22px);color:#7dffb4;text-shadow:0 0 10px #22ff88;word-break:break-all}
+/* menu */
+#gear{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:12px;z-index:20;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:20px;cursor:pointer}
+#menu{position:fixed;top:calc(62px + env(safe-area-inset-top,0px));right:12px;z-index:20;width:min(330px,calc(100vw - 24px));max-height:80vh;overflow:auto;padding:16px;border-radius:14px;background:var(--card);color:var(--fg);border:1px solid var(--line);display:none;font-size:14px;font-family:system-ui,sans-serif;text-shadow:none}
+#menu.open{display:block}
+#menu h3{margin:14px 0 6px;font-size:14px}#menu h3:first-child{margin-top:0}
+#menu input,#menu select{width:100%;padding:7px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--fg);font:inherit}
+.dur{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.dur label{font-size:12px;color:var(--muted)}
+#menu button{margin-top:8px;padding:8px 12px;border-radius:8px;border:0;background:var(--acc);color:#000;font-weight:700;cursor:pointer}
+#menu button.g{background:transparent;color:var(--fg);border:1px solid var(--line);margin-left:6px}
+#menu .pv{font-size:12px;color:var(--muted);margin-top:6px}
+#err{color:#f66;font-size:12px;min-height:14px;margin-top:6px}
+/* falling */
+.f{position:fixed;top:-10vh;z-index:2;pointer-events:none;animation:fall linear infinite}
+@keyframes fall{to{transform:translateY(118vh) rotate(360deg)}}
+/* vice city */
+.vc{display:none;position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+body[data-theme=vice] .vc{display:block}
+body[data-theme=vice] main{padding-top:80px}
+.sun{position:absolute;left:50%;bottom:26%;width:min(420px,70vw);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:linear-gradient(#ffe36e,#ff3d9a);-webkit-mask-image:repeating-linear-gradient(#000 0 20px,transparent 20px 25px);mask-image:repeating-linear-gradient(#000 0 20px,transparent 20px 25px);opacity:.85;box-shadow:0 0 90px #ff3d9a}
+.floor{position:absolute;left:-50%;right:-50%;bottom:0;height:28%;background:linear-gradient(#2a0a55,#0d0225);transform:perspective(260px) rotateX(58deg);transform-origin:bottom;background-image:repeating-linear-gradient(90deg,#00f0ff 0 2px,transparent 2px 70px),repeating-linear-gradient(0deg,#00f0ff 0 2px,transparent 2px 44px)}
+.palm{position:absolute;bottom:6%;font-size:clamp(110px,22vw,230px);line-height:1;filter:brightness(0) drop-shadow(0 0 10px #ff2d95)}
+.p1{left:-2%}.p2{right:-2%;transform:scaleX(-1)}
+.marq{position:absolute;top:0;left:0;width:100%;background:#ff2d95;color:#fff;font-family:'Bungee',sans-serif;font-size:20px;padding:8px 0;overflow:hidden;white-space:nowrap;box-shadow:0 0 25px #ff2d95}
+.marq div{display:inline-block;animation:mq 14s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+</style>
+</head>
+<body>
+<div class="vc"><div class="sun"></div><div class="floor"></div><div class="palm p1">🌴</div><div class="palm p2">🌴</div><div class="marq"><div id="mq"></div></div></div>
+<button id="gear" aria-label="Меню">⚙</button>
+<button id="gear2" aria-label="Темы">☰</button>
+<div id="tp"></div>
+<div id="gm"><div class="gbox"><div class="gtop"><b id="gtitle">Меню игр</b><button id="gx">✕</button></div><div id="gbody"></div></div></div>
+<div id="lock"><b>Секретный код</b><input type="password" id="code" placeholder="Введите код" autocomplete="off"><button id="unlock">Войти</button><div id="cerr"></div></div>
+<div id="ecl"></div><div id="vig"></div><div id="blood"></div><div id="flash"></div><div id="msg"></div><div id="endbot">привет из 29 сентября 2026</div><div id="fin"><span>ПРИШЛО ВРЕМЯ</span></div>
+<div id="menu">
+  <h3>Поставить свою дату и время</h3>
+  <input type="datetime-local" id="dt">
+  <button id="setDate">Применить</button><div class="pv" id="pv1">—</div>
+  <h3>Поставить, сколько должно оставаться</h3>
+  <div class="dur">
+    <div><label>лет</label><input type="number" min="0" id="d0" value="0"></div>
+    <div><label>месяцев</label><input type="number" min="0" id="d1" value="0"></div>
+    <div><label>дней</label><input type="number" min="0" id="d2" value="0"></div>
+    <div><label>часов</label><input type="number" min="0" id="d3" value="0"></div>
+    <div><label>минут</label><input type="number" min="0" id="d4" value="0"></div>
+    <div><label>секунд</label><input type="number" min="0" id="d5" value="0"></div>
+  </div>
+  <button id="setDur">Применить</button><div class="pv" id="pv2">—</div>
+  <h3>Тема</h3>
+  <select id="theme"><option value="auto">Автоматически по дате</option><option value="default">Обычная</option><option value="april">🤡 1 апреля</option><option value="bday">🎂 День рождения</option><option value="anniv">🥂 Годовщина</option><option value="halloween">🎃 Хэллоуин</option><option value="black">🏷️ Чёрная пятница</option><option value="winter">❄️ Новый год</option><option value="fri13">🕸️ Пятница 13</option><option value="vice">🌴 Vice City (ГТА 6)</option><option value="doom">2031.</option></select>
+  <div id="err"></div>
+  <h3>Секретное</h3><button id="advAdm">Расширенный режим</button>
+  <button class="g" id="reset" style="margin-left:0">Сбросить всё</button>
+</div>
+<main id="main">
+  <div class="head"><h1 id="title"></h1><p class="sub" id="sub"></p><div class="clock" id="clock"></div></div>
+  <div class="big" id="big"></div>
+  <div class="bar-wrap">
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div id="zwrap"><canvas id="zc"></canvas><div class="zctl"><button id="zm">−</button><input type="range" id="zr" min="0" max="9" step="0.01" value="0"><button id="zp">+</button><span id="zl">×1</span></div><div id="zs"></div></div>
+    <div class="pct" id="pct"></div>
+    <div class="meta"><span id="mS"></span><span id="mE"></span></div>
+    <button id="advBtn">РАСШИРЕННЫЙ РЕЖИМ</button>
+  </div>
+  <h2 id="h2"></h2>
+  <div class="tot" id="tot"></div>
+  <section class="facts" id="facts"></section>
+  <section class="facts" id="games"><h3>Мини-игры</h3><p style="margin:0 0 12px;font-size:14px;color:var(--muted)">Пока ждёшь стрим, можно сыграть. Если тема сменится посреди игры, она вылетит.</p><button id="openG">🎮 Меню игр</button></section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const DEF={start:new Date(2026,7,15).getTime(),end:new Date(2031,7,15).getTime()};
+let cfg={off:0,theme:'auto'};
+try{const c=JSON.parse(localStorage.getItem('cfg3')||'null');if(c&&isFinite(c.off))cfg=Object.assign(cfg,c)}catch(e){}
+const save=()=>{try{localStorage.setItem('cfg3',JSON.stringify(cfg))}catch(e){}};
+const TX={
+ default:['Сколько осталось до стрима?','','Всего осталось'],
+ winter:['С Новым годом! До стрима осталось','Пусть в новом году всё сбудется','Всего до стрима'],
+ halloween:['Хэллоуин: до стрима осталось…','Если доживёшь','Всего мрачных мгновений'],
+ bday:['С днём рождения!','А до стрима осталось:','Всего до стрима'],
+ vice:['ГТА 6 СЕГОДНЯ!!!','Welcome to Vice City! Мега радость!!!','Всего до стрима'],
+ doom:['ОСТАЛОСЬ ДО ВАШЕЙ СУДЬБЫ','Время утекает…','ВСЕГО ОСТАЛОСЬ'],
+ april:['…','…','…'],anniv:['…','…','Всего до стрима'],
+ fri13:['Пятница, 13-е: до стрима осталось…','Не выходи из дома сегодня','Всего осталось'],
+ black:['ЧЁРНАЯ ПЯТНИЦА','Скидка на время: до стрима осталось','Всего до стрима'],
+ blood:['…','…','ВСЕГО ОСТАЛОСЬ'],end:['Вот и все..','…','…']};
+const FALL={winter:['\u2744\uFE0E','\u2745\uFE0E','\u2746\uFE0E'],halloween:['🎃','🦇','👻'],bday:['🎁','🎀','🎉'],vice:['🌴','🚗','💖','🔥','🕶️'],anniv:['✨','🎉','⭐','🎂'],fri13:['🕸️','🕷️'],black:['🏷️','💸','🛒','🔥'],blood:['●','•','▪']};
+function auto(n){const y=n.getFullYear(),m=n.getMonth()+1,d=n.getDate(),k=(m*100+d)*100+n.getHours();
+ if(n>=new Date(2031,0,1))return'doom';
+ if(y==2026&&m==11&&d==19)return'vice';
+ if(m==4&&d==1)return'april';
+ if(m==4&&d==28)return'bday';
+ if(m==8&&d==15)return'anniv';
+ if(k>=102500&&k<110100)return'halloween';
+ if(d==13&&n.getDay()==5)return'fri13';
+ if(m==11){const f=1+(4-new Date(y,10,1).getDay()+7)%7;if(d==f+22)return'black'}
+ if(k>=120100||k<=11512)return'winter';
+ return'default'}
+const T=(e,t)=>{if(e._t!==t){e.textContent=t;e._t=t}};let cur='';
+function setTheme(t){if(t===cur)return;cur=t;lastSec=-1;quitGame('Игра вылетела: тема сменилась');advSet(0);document.body.dataset.theme=t;
+ const x=TX[t];T($('title'),x[0]);T($('sub'),x[1]);$('sub').style.display=x[1]?'':'none';T($('h2'),x[2]);
+ $('mq').textContent=('ГТА 6 СЕГОДНЯ!!! ★ VICE CITY ★ '.repeat(8));
+ document.querySelectorAll('.f').forEach(e=>e.remove());
+ const a=FALL[t];if(a){for(let i=0;i<26;i++){const e=document.createElement('span');e.className='f';e.textContent=a[i%a.length];
+  e.style.cssText=`left:${Math.random()*100}vw;font-size:${(t==='blood'?5:16)+Math.random()*(t==='blood'?9:22)}px;animation-duration:${6+Math.random()*8}s;animation-delay:-${Math.random()*12}s;color:${t==='winter'?'#7fb4e6':t==='blood'?'#c40000':'inherit'}`;document.body.appendChild(e)}}}
+const pl=(n,f)=>{n=Math.abs(n);const a=n%100,b=n%10;return a>10&&a<15?f[2]:b==1?f[0]:b>1&&b<5?f[1]:f[2]};
+const U=[['год','года','лет'],['месяц','месяца','месяцев'],['день','дня','дней'],['час','часа','часов'],['минута','минуты','минут'],['секунда','секунды','секунд'],['миллисекунда','миллисекунды','миллисекунд']];
+const addM=(d,k)=>{const r=new Date(d.getFullYear(),d.getMonth()+k,1,d.getHours(),d.getMinutes(),d.getSeconds(),d.getMilliseconds());const l=new Date(r.getFullYear(),r.getMonth()+1,0).getDate();r.setDate(Math.min(d.getDate(),l));return r};
+function parts(a,b){let mo=(b.getFullYear()-a.getFullYear())*12+b.getMonth()-a.getMonth();while(mo>0&&addM(a,mo)>b)mo--;
+ let r=b-addM(a,mo);const d=Math.floor(r/864e5);r-=d*864e5;const h=Math.floor(r/36e5);r-=h*36e5;const m=Math.floor(r/6e4);r-=m*6e4;const s=Math.floor(r/1e3);r-=s*1e3;
+ return[Math.floor(mo/12),mo%12,d,h,m,s,r]}
+const fmt=(n,d=0)=>n.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d});
+const ds=t=>new Date(t).toLocaleString('ru-RU',{dateStyle:'long',timeStyle:'short'});
+const bigEls=U.map(()=>{const e=document.createElement('div');e.className='unit';e.innerHTML='<b></b><span></span>';$('big').appendChild(e);return e});
+const totEls=U.map(()=>{const e=document.createElement('div');e.innerHTML='<b></b><span></span>';$('tot').appendChild(e);return e});
+const YMS=365.2425*864e5,DV=[YMS,YMS/12,864e5,36e5,6e4,1e3,1];
+const SC='абвгдежзиклмнопрстуфхцчшщыэюяЖЩЪ#%&?@0123456789';
+const mess=x=>[...x].map(c=>c===' '?c:Math.random()<.65?SC[Math.random()*SC.length|0]:c).join('');
+const ED=new Date(DEF.end).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'}).replace(' г.','').toUpperCase();
+const HORR=[ED+' — ЭТО КОНЕЦ','ПРОЩАЙ','НАСТУПАЕТ '+ED,'ВСЁ ЗАКАНЧИВАЕТСЯ','ПОСЛЕДНИЕ СЕКУНДЫ','ПРОЩАЙ…'];
+const DEC=[...totEls.map((e,i)=>[e,290-i*15]),[$('h2'),185],[$('clock'),165],[$('sub'),145],[document.querySelector('.meta'),125],[$('title'),100],[$('facts'),298],[$('games'),299],[$('advBtn'),300]];
+let lastTp=-1,lastSec=-1,rnd=null,lab=[],mT=0,fl=0;
+function tick(){
+ try{
+  const now=new Date(Date.now()+cfg.off),left=Math.max(0,DEF.end-now),th=now>=DEF.end+60000?'end':left<=60000?'blood':cfg.theme==='auto'?auto(now):cfg.theme;
+  setTheme(th);const sec=now.getSeconds(),ap=th==='april';
+  if($('tp').classList.contains('open')&&sec!==lastTp){lastTp=sec;renderTP(now)}
+  if(ap){if(sec!==lastSec||!rnd){lastSec=sec;const r=m=>Math.random()*(m+1)|0;
+   rnd={p:[r(99),r(11),r(30),r(23),r(59),r(59),r(999)],t:DV.map((_,i)=>fmt(Math.random()*[99,1200,36500,876000,5e7,3e9,1e12][i],i<3?2:0)),pct:Math.random()*100};
+   lab=U.map(u=>mess(u[2]));T($('title'),mess('Сколько осталось до стрима?'));T($('sub'),mess('Первое апреля'));T($('h2'),mess('Всего осталось'));T($('clock'),mess((cfg.off?'Дата на сайте: ':'Ваше время: ')+now.toLocaleString('ru-RU')))}}
+  else T($('clock'),(cfg.off?'Дата на сайте: ':'Ваше время: ')+now.toLocaleString('ru-RU'));
+  if(th==='anniv'){const y=Math.round(left/YMS),n=now.getFullYear()-2026;T($('title'),'Годовщина! Осталось '+y+' '+pl(y,U[0]));T($('sub'),n>0?n+' '+pl(n,U[0])+' назад всё началось':'Сегодня всё началось')}
+  if(th==='blood'){const f=1-left/6e4;T($('msg'),HORR[(sec/4|0)%HORR.length]);
+   $('blood').style.height=(f*104)+'%';$('vig').style.animationDuration=(1.1-.85*f)+'s';
+   const k=f*f*18;$('main').style.transform='translate('+(Math.random()-.5)*k+'px,'+(Math.random()-.5)*k+'px)';mT=1;
+   $('fin').style.opacity=left<=1e3?1-left/1e3:0;$('fin').firstChild.style.opacity=left<=400?1:0;fl=Math.max(0,fl-.03);if(Math.random()<.015)fl=.25+.4*f;$('flash').style.opacity=fl;$('ecl').style.opacity=.2+.8*f}
+  else if(left<=3e5&&th!=='end'){const q=1-left/3e5,k=q*q*7;$('main').style.transform='translate('+(Math.random()-.5)*k+'px,'+(Math.random()-.5)*k+'px)';mT=1}
+  else if(mT){$('main').style.transform='';mT=0}
+  const dp=Math.min(1,Math.max(0,(now-DEF.start)/(DEF.end-DEF.start)));T($('fLeft'),'Уже прошло '+fmt(Math.floor(dp*FD),0)+' из '+fmt(FD,0)+' дн ('+fmt(dp*100,2)+' %)');
+  DEC.forEach(([e,t])=>e.classList.toggle('gone',left/1000<=t));
+  if($('games').classList.contains('gone'))closeG();
+  lastLeft=left;if(left<=3e5&&ADV)advSet(0);
+  const p=left>0?parts(now,new Date(DEF.end)):[0,0,0,0,0,0,0];
+  p.forEach((v,i)=>{if(ap)v=rnd.p[i];bigEls[i].children[0].textContent=i>=3?String(v).padStart(i==6?3:2,'0'):v;bigEls[i].children[1].textContent=ap?lab[i]:pl(v,U[i])});
+  const S=DEF.start,span=DEF.end-S,pr=ap?rnd.pct:(span>0?Math.min(1,Math.max(0,(now-S)/span)):1)*100;
+  $('fill').style.width=pr+'%';$('pct').textContent=fmt(pr,6)+' %';$('mS').textContent=ds(S);$('mE').textContent=ds(DEF.end);if(ADV)advFrame();
+  DV.forEach((dv,i)=>{const v=left/dv,dec=i<2?4:i==2?2:0;totEls[i].children[0].textContent=ap?rnd.t[i]:fmt(dec?v:Math.floor(v),dec);totEls[i].children[1].textContent=(ap?lab[i]:pl(Math.floor(v),U[i]))+' всего'});
+ }catch(e){console.error(e)}
+ requestAnimationFrame(tick)}
+const dateSet=()=>{const v=$('dt').value,t=v?new Date(v).getTime():NaN;return isFinite(t)?t:null};
+const durSet=()=>{const n=[0,1,2,3,4,5].map(i=>Math.min(1e4,Math.max(0,Math.floor(+$('d'+i).value||0))));if(!n.some(x=>x))return null;
+ const t=addM(new Date(DEF.end),-(n[0]*12+n[1])).getTime()-(n[2]*864e5+n[3]*36e5+n[4]*6e4+n[5]*1e3);return isFinite(t)?t:null};
+const apply=t=>{if(t==null){$('err').textContent='Заполните значение';return}$('err').textContent='';cfg.off=t-Date.now();save()};
+const NM={april:'🤡 1 апреля',bday:'🎂 День рождения',anniv:'🥂 Годовщина',halloween:'🎃 Хэллоуин',black:'🏷️ Чёрная пятница',winter:'❄️ Новый год',fri13:'🕸️ Пятница 13',vice:'🌴 Vice City',doom:'2031.'};
+const OCC=(()=>{const o={},lim=DEF.end-60000,add=(k,d)=>{const t=+d;if(t>=DEF.start&&t<(k==='doom'?lim:+new Date(2031,0,1)))(o[k]=o[k]||[]).push(t)};
+ for(let y=2026;y<=2031;y++){add('winter',new Date(y,11,1));add('halloween',new Date(y,9,25));add('bday',new Date(y,3,28));add('april',new Date(y,3,1));add('anniv',new Date(y,7,15));add('black',new Date(y,10,1+(4-new Date(y,10,1).getDay()+7)%7+22))}
+ for(let d=new Date(DEF.start);d<lim;d.setDate(d.getDate()+1))if(d.getDate()==13&&d.getDay()==5)add('fri13',new Date(d));
+ add('vice',new Date(2026,10,19));add('doom',new Date(2031,0,1));
+ o.blood=[lim];o.end=[DEF.end+60000];return o})();
+const sh=(t,tm)=>new Date(t).toLocaleString('ru-RU',tm?{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}:{day:'numeric',month:'short',year:'numeric'});
+const NU=['г','мес','дн','ч','мин','с'];
+const lf=(a,b)=>{const r=[];parts(new Date(a),new Date(b)).slice(0,6).forEach((v,i)=>{if(v&&r.length<3)r.push(v+' '+NU[i])});return r.join(' ')||'0 с'};
+function renderTP(now){const N=+now,rows=Object.keys(NM).map(k=>{const o=OCC[k]||[],nx=o.find(t=>t>N),act=cur===k,tm=k==='blood'||k==='end';
+  let pr,line,done=false,key;
+  if(act){pr=100;line='Идёт сейчас';key=-1}
+  else if(nx==null){pr=100;done=true;key=1e18;line='последний раз: '+(o.length?sh(o[o.length-1],tm):'—')+' · Больше не будет!'}
+  else{let pv=DEF.start;o.forEach(t=>{if(t<=N)pv=t});pr=Math.min(1,Math.max(0,(N-pv)/(nx-pv)))*100;key=nx;line=sh(nx,tm)+' · ещё '+lf(N,nx)}
+  return{key,html:'<div class="tr"><div class="th"><b>'+NM[k]+'</b><span>'+fmt(pr,2)+' %</span></div><div class="tb'+(done?' done':'')+'"><i style="width:'+pr+'%"></i></div><div class="td">'+line+'</div></div>'}});
+ $('tp').innerHTML='<h3>Когда какая тема</h3>'+rows.map(r=>r.html).join('')}
+$('gear2').onclick=()=>{$('menu').classList.remove('open');$('lock').classList.remove('open');$('tp').classList.toggle('open');lastTp=-1};
+const FACT=(()=>{const H={};let hrs=0,wk=0,mon=0,dst=0;
+ for(let t=DEF.start;t<DEF.end;t+=36e5){const k=auto(new Date(t));H[k]=(H[k]||0)+1;hrs++}
+ let pv=new Date(DEF.start).getTimezoneOffset();
+ for(let d=new Date(DEF.start);d<DEF.end;d.setDate(d.getDate()+1)){const g=d.getDay();if(g==0||g==6)wk++;if(g==1)mon++;const o=d.getTimezoneOffset();if(o!==pv){dst++;pv=o}}
+ return{H,hrs,wk,mon,dst}})();
+const FD=Math.round((DEF.end-DEF.start)/864e5);
+(()=>{const n=v=>fmt(v,0),mins=(DEF.end-DEF.start)/6e4,ny=new Date(DEF.end).getFullYear()-new Date(DEF.start).getFullYear();
+ const SH=[...Object.keys(NM),'default'].map(k=>{const h=FACT.H[k]||0;return{n:k==='default'?'Обычная':NM[k],p:h/FACT.hrs*100,d:h/24}}),mx=Math.max(...SH.map(r=>r.p));
+ $('facts').innerHTML='<h3>Интересные факты...</h3><ul>'
+ +'<li>Всего тем: <b>12</b>, одна из них обычная</li>'
+ +'<li>Всё ожидание: <b>'+n(FD)+' дн</b> = '+n(FACT.hrs)+' ч = '+n(mins)+' мин = '+n(mins*60)+' с</li>'
+ +'<li id="fLeft"></li>'
+ +'<li>Суббот и воскресений: <b>'+n(FACT.wk)+'</b>, понедельников: <b>'+n(FACT.mon)+'</b></li>'
+ +'<li>По пути: Хэллоуинов <b>'+OCC.halloween.length+'</b>, Чёрных пятниц <b>'+OCC.black.length+'</b>, пятниц 13 <b>'+OCC.fri13.length+'</b>, Новых годов <b>'+ny+'</b>, дней рождения (28 апреля) <b>'+OCC.bday.length+'</b></li>'
+ +'<li>Часы переведут <b>'+FACT.dst+'</b> раз, а високосный день будет один: 29 февраля 2028</li>'
+ +'<li>Сердце за это время ударит примерно <b>'+n(mins*70/1e6)+' млн</b> раз (70 уд/мин)</li></ul>'
+ +'<h4>Сколько всего ожидания занимает каждая тема</h4><div class="sh">'
+ +SH.map(r=>'<div class="tr"><div class="th"><b>'+r.n+'</b><span>'+fmt(r.p,2)+' % · '+fmt(r.d,1)+' дн</span></div><div class="tb"><i style="width:'+(r.p/mx*100)+'%"></i></div></div>').join('')+'</div>'})();
+let G=null;const $g=$('gbody');
+const cv=(w,h)=>{const c=document.createElement('canvas');c.width=w;c.height=h;c.style.cssText='width:100%;max-width:'+w+'px;display:block;margin:0 auto;border-radius:10px;background:#1b1e27;touch-action:none';return c};
+const css=n=>getComputedStyle(document.body).getPropertyValue(n).trim()||'#6ea8fe';
+function stopG(){if(G){try{G.stop&&G.stop()}catch(e){}G=null}}
+function menuG(){stopG();$('gtitle').textContent='Меню игр';$g.innerHTML='';GAMES.forEach(g=>{const b=document.createElement('button');b.className='gb';b.textContent=g.n;b.onclick=()=>{stopG();$('gtitle').textContent=g.n;$g.innerHTML='';G={stop:g.run($g)}};$g.appendChild(b)})}
+function quitGame(msg){if(!G)return;stopG();if($('gm').classList.contains('open')){$('gtitle').textContent='Ошибка';$g.innerHTML='<div class="gmsg">💥 '+msg+'</div>';const b=document.createElement('button');b.className='gb';b.textContent='В меню';b.onclick=menuG;$g.appendChild(b)}}
+function closeG(){stopG();$('gm').classList.remove('open')}
+$('openG').onclick=()=>{menuG();$('gm').classList.add('open')};$('gx').onclick=closeG;
+const GAMES=[
+{n:'🧺 Лови подарки (по теме)',run:box=>{const c=cv(300,400),x=c.getContext('2d'),E=FALL[cur]&&cur!=='blood'?FALL[cur]:['⭐','🌟'],ac=css('--acc');box.appendChild(c);
+ let bx=150,it=[],sc=0,li=3,sp=0,raf,over=0;
+ const mv=e=>{const r=c.getBoundingClientRect(),p=e.touches?e.touches[0]:e;bx=(p.clientX-r.left)*300/r.width;e.preventDefault()};
+ c.addEventListener('mousemove',mv);c.addEventListener('touchmove',mv,{passive:false});c.onclick=()=>{if(over){it=[];sc=0;li=3;over=0}};
+ const loop=t=>{x.clearRect(0,0,300,400);if(!over){if(t-sp>Math.max(350,900-sc*15)){sp=t;it.push({x:20+Math.random()*260,y:-20,v:1.6+Math.random()*1.4+sc*.05,e:E[Math.random()*E.length|0]})}
+  it.forEach(o=>o.y+=o.v);it=it.filter(o=>{if(o.y>360&&Math.abs(o.x-bx)<42){sc++;return false}if(o.y>410){li--;return false}return true});if(li<=0)over=1}
+  x.fillStyle=ac;x.fillRect(bx-40,365,80,12);x.font='26px serif';x.textAlign='center';it.forEach(o=>x.fillText(o.e,o.x,o.y));
+  x.fillStyle='#fff';x.font='bold 16px system-ui';x.textAlign='left';x.fillText('Счёт: '+sc+'   Жизни: '+'♥'.repeat(Math.max(li,0)),8,20);
+  if(over){x.textAlign='center';x.font='bold 24px system-ui';x.fillText('Конец! Счёт '+sc,150,190);x.font='14px system-ui';x.fillText('нажми, чтобы заново',150,215)}
+  raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);return()=>cancelAnimationFrame(raf)}},
+{n:'⏱ Ровно 10 секунд',run:box=>{box.innerHTML='<div class="gmsg" id="sT">0.000</div><div class="gmsg" id="sR">Останови таймер ровно на 10.000. Цифры исчезнут на 3-й секунде</div>';const b=document.createElement('button');b.className='gb';b.textContent='Старт';box.appendChild(b);let st=0,raf=0;
+ const lp=()=>{const t=(performance.now()-st)/1e3;$('sT').textContent=t<3?t.toFixed(3):'?.???';raf=requestAnimationFrame(lp)};
+ b.onclick=()=>{if(!st){st=performance.now();b.textContent='Стоп';raf=requestAnimationFrame(lp)}else if(raf){cancelAnimationFrame(raf);raf=0;const t=(performance.now()-st)/1e3;$('sT').textContent=t.toFixed(3);$('sR').textContent='Ошибка: '+Math.abs(t-10).toFixed(3)+' с'+(Math.abs(t-10)<.05?' — отлично!':'');b.textContent='Ещё раз';st=-1}else{st=0;$('sT').textContent='0.000';$('sR').textContent='Останови таймер ровно на 10.000';b.textContent='Старт'}};
+ return()=>cancelAnimationFrame(raf)}},
+{n:'🗓 Угадай тему по дате',run:box=>{let alive=1,inf=0,r=0,sc=0,st=0;const names=[...Object.values(NM),'Обычная'];
+ const btn=(t,f)=>{const b=document.createElement('button');b.className='gb';b.textContent=t;b.onclick=f;box.appendChild(b);return b};
+ const pick=()=>{box.innerHTML='<div class="gmsg">Выбери режим</div>';btn('Обычный: 5 раундов',()=>{inf=0;r=0;sc=0;next()});btn('Бесконечный: до первой ошибки',()=>{inf=1;st=0;next()});const p=document.createElement('div');p.className='gmsg';p.style.cssText='font-size:12px;opacity:.7';p.textContent='Угадаешь 50 подряд, и откроется секрет';box.appendChild(p)};
+ const end=t=>{if(!alive)return;box.innerHTML='<div class="gmsg">'+t+'</div>';btn('Ещё раз',()=>{r=0;sc=0;st=0;next()});btn('Режимы',pick)};
+ const next=()=>{if(!alive)return;if(!inf&&r>=5){end('Готово! '+sc+' из 5');return}
+  r++;const ks=Object.keys(OCC).filter(k=>k!=='blood'&&k!=='end'&&OCC[k].length);let ts;
+  if(Math.random()<.6){const a=OCC[ks[Math.random()*ks.length|0]];ts=a[Math.random()*a.length|0]+432e5}else ts=DEF.start+Math.random()*(DEF.end-DEF.start-864e5);
+  const d=new Date(ts),k=auto(d),ok=k==='default'?'Обычная':NM[k],opts=[ok];while(opts.length<4){const n=names[Math.random()*names.length|0];if(!opts.includes(n))opts.push(n)}opts.sort(()=>Math.random()-.5);
+  box.innerHTML='<div class="gmsg">'+(inf?'Серия: '+st:'Раунд '+r+'/5')+'<br>Какая тема будет '+d.toLocaleString('ru-RU',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'})+'?</div>';
+  opts.forEach(o=>btn(o,function(){box.querySelectorAll('.gb').forEach(x=>x.onclick=null);this.style.outline='2px solid '+(o===ok?'#4c4':'#e44');
+   if(o===ok){sc++;st++;if(inf&&st>=50){advUnlock();setTimeout(()=>end('🔓 50 подряд! Открыт РАСШИРЕННЫЙ РЕЖИМ: кнопка у прогрессбара'),600);return}setTimeout(next,600)}
+   else if(inf)setTimeout(()=>end('Ошибка! Серия: '+st+'. Правильный ответ: '+ok),700);else setTimeout(next,600)}))};
+ pick();return()=>{alive=0}}},
+{n:'🐍 Змейка',run:box=>{const c=cv(300,300),x=c.getContext('2d'),ac=css('--acc');box.appendChild(c);
+ let s,d,nd,f,sc,over,iv;const pf=()=>{do f=[Math.random()*20|0,Math.random()*20|0];while(s.some(p=>p[0]==f[0]&&p[1]==f[1]))},rs=()=>{s=[[10,10],[9,10],[8,10]];d=nd=[1,0];sc=0;over=0;pf()};
+ const dir=(a,b)=>{if(a!=-d[0]||b!=-d[1])nd=[a,b]};
+ const key=e=>{const m={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(m){dir(...m);e.preventDefault()}};document.addEventListener('keydown',key);
+ let tx,ty;c.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});c.addEventListener('touchend',e=>{const a=e.changedTouches[0].clientX-tx,b=e.changedTouches[0].clientY-ty;Math.abs(a)>Math.abs(b)?dir(a>0?1:-1,0):dir(0,b>0?1:-1)});
+ c.onclick=()=>{if(over)rs()};rs();
+ iv=setInterval(()=>{if(!over){d=nd;const h=[s[0][0]+d[0],s[0][1]+d[1]];if(h[0]<0||h[1]<0||h[0]>19||h[1]>19||s.some(p=>p[0]==h[0]&&p[1]==h[1]))over=1;else{s.unshift(h);if(h[0]==f[0]&&h[1]==f[1]){sc++;pf()}else s.pop()}}
+  x.clearRect(0,0,300,300);x.fillStyle='#e44';x.fillRect(f[0]*15+2,f[1]*15+2,11,11);x.fillStyle=ac;s.forEach(p=>x.fillRect(p[0]*15+1,p[1]*15+1,13,13));x.fillStyle='#fff';x.font='bold 14px system-ui';x.textAlign='left';x.fillText('Счёт: '+sc,8,16);if(over){x.textAlign='center';x.font='bold 20px system-ui';x.fillText('Конец! Нажми, чтобы заново',150,150)}},110);
+ return()=>{clearInterval(iv);document.removeEventListener('keydown',key)}}},
+{n:'🐢 Память (пары)',run:box=>{let alive=1,first=null,lock=0,mv=0,left=8;const E=['🐢','🚗','🎧','🌵','🎲','🚀','🍕','⏳'],deck=[...E,...E].sort(()=>Math.random()-.5);
+ const info=document.createElement('div');info.className='gmsg';info.textContent='Ходы: 0';const g=document.createElement('div');g.className='mg';box.append(info,g);
+ deck.forEach(e=>{const b=document.createElement('button');b.className='mc';b.onclick=()=>{if(lock||b.textContent)return;b.textContent=e;if(!first){first=b;return}mv++;info.textContent='Ходы: '+mv;if(first.textContent===e){first.dataset.ok=b.dataset.ok=1;first=null;if(!--left)info.textContent='Победа за '+mv+' ходов!'}else{lock=1;const a=first;first=null;setTimeout(()=>{if(!alive)return;a.textContent=b.textContent='';lock=0},700)}};g.appendChild(b)});
+ return()=>{alive=0}}}
+];
+let ADV=0,anchor=null,zoom=1,lastLeft=1e18,T0=Date.now(),P0=performance.now();
+const advSet=v=>{ADV=v;document.body.classList.toggle('adv',!!v);$('advBtn').textContent=v?'ВЫКЛЮЧИТЬ РАСШИРЕННЫЙ РЕЖИМ':'РАСШИРЕННЫЙ РЕЖИМ';anchor=null};
+const advUI=()=>{document.body.classList.toggle('advok',!!cfg.adv);$('advAdm').textContent=cfg.adv?'🔒 Скрыть расширенный режим':'🔓 Открыть расширенный режим'};
+const advUnlock=()=>{cfg.adv=true;save();advUI()};
+$('advBtn').onclick=()=>{if(!ADV&&lastLeft<=3e5)return;advSet(ADV?0:1)};
+$('advAdm').onclick=()=>{cfg.adv=!cfg.adv;if(!cfg.adv)advSet(0);save();advUI()};
+const zset=v=>{v=Math.min(9,Math.max(0,v));$('zr').value=v;zoom=Math.pow(10,v);anchor=null;$('zl').textContent='×'+fmt(Math.round(zoom),0)};
+$('zr').oninput=()=>zset(+$('zr').value);$('zm').onclick=()=>zset(+$('zr').value-.5);$('zp').onclick=()=>zset(+$('zr').value+.5);
+const pct20=ms=>{const num=BigInt(Math.round((ms-DEF.start)*1000)),den=BigInt(Math.round((DEF.end-DEF.start)*1000));if(num<=0n)return'0.'+'0'.repeat(20);if(num>=den)return'100.'+'0'.repeat(20);const q=(num*100n*(10n**20n)/den).toString().padStart(22,'0');return q.slice(0,-20).replace(/^0+(?=\d)/,'')+'.'+q.slice(-20)};
+const STP=[1,2,5,10,20,50,100,200,500,1e3,2e3,5e3,1e4,3e4,6e4,3e5,6e5,36e5,216e5,864e5,6048e5,2592e6,7776e6];
+const p2=n=>String(n).padStart(2,'0');
+const lbl=(t,st)=>{const d=new Date(t);return st<1e3?p2(d.getHours())+':'+p2(d.getMinutes())+':'+p2(d.getSeconds())+'.'+String(d.getMilliseconds()).padStart(3,'0'):st<864e5?(st>=36e5?p2(d.getDate())+'.'+p2(d.getMonth()+1)+' ':'')+p2(d.getHours())+':'+p2(d.getMinutes())+(st<6e4?':'+p2(d.getSeconds()):''):p2(d.getDate())+'.'+p2(d.getMonth()+1)+'.'+d.getFullYear()};
+const winTxt=w=>w>=864e5?fmt(w/864e5,1)+' дн':w>=36e5?fmt(w/36e5,1)+' ч':w>=6e4?fmt(w/6e4,1)+' мин':w>=1e3?fmt(w/1e3,2)+' с':fmt(w,2)+' мс';
+function advFrame(){
+ let ex=T0+(performance.now()-P0)+cfg.off;if(Math.abs(ex-(Date.now()+cfg.off))>50){T0=Date.now();P0=performance.now();ex=T0+cfg.off}
+ $('pct').textContent=pct20(ex)+' %';
+ const c=$('zc'),w=Math.max(200,c.clientWidth),h=70,dpr=devicePixelRatio||1;
+ if(c.width!==Math.round(w*dpr)){c.width=Math.round(w*dpr);c.height=h*dpr}
+ const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);
+ const S=DEF.start,E=DEF.end,win=(E-S)/zoom;
+ if(zoom<=1.0001)anchor=S;else if(anchor==null||ex<anchor||ex>anchor+win*.9)anchor=ex-win*.1;
+ const px=t=>(t-anchor)/win*w,xs=Math.max(0,px(S)),xe=Math.min(w,px(E)),xn=Math.min(w,Math.max(0,px(ex)));
+ x.fillStyle='rgba(125,255,180,.10)';x.fillRect(xs,26,Math.max(0,xe-xs),20);
+ const g=x.createLinearGradient(0,0,w,0);g.addColorStop(0,'#1aff8a');g.addColorStop(1,'#22d3ee');x.fillStyle=g;x.fillRect(xs,26,Math.max(0,xn-xs),20);
+ x.font='10px Courier New,monospace';x.textAlign='center';x.strokeStyle='rgba(125,255,180,.5)';
+ const tick=(X,tx)=>{x.beginPath();x.moveTo(X,48);x.lineTo(X,56);x.stroke();x.fillStyle='rgba(125,255,180,.8)';x.fillText(tx,Math.min(w-24,Math.max(24,X)),67)};
+ if(win>4e10){for(let y=new Date(anchor).getFullYear();;y++){const t=+new Date(y,0,1);if(t>anchor+win)break;if(t>=anchor)tick(px(t),String(y))}}
+ else{const st=STP.find(v=>v>=win/8)||STP[STP.length-1];for(let t=Math.ceil(anchor/st)*st;t<anchor+win;t+=st)tick(px(t),lbl(t,st))}
+ if(xn>0&&xn<w){x.save();x.shadowColor='#fff';x.shadowBlur=14;x.fillStyle='#fff';x.fillRect(xn-1,18,2,36);x.restore()}
+ const sx=(performance.now()/12)%(w+60)-30,sg=x.createLinearGradient(sx-30,0,sx,0);sg.addColorStop(0,'rgba(125,255,180,0)');sg.addColorStop(1,'rgba(125,255,180,.28)');x.fillStyle=sg;x.fillRect(sx-30,0,30,h);
+ x.fillStyle='#7dffb4';x.textAlign='left';x.fillText('ZOOM ×'+fmt(Math.round(zoom),0)+'  ОКНО '+winTxt(win),6,12);
+ T($('zs'),'Прошло:  '+fmt(Math.max(0,ex-S),0)+' мс\nОсталось: '+fmt(Math.max(0,E-ex),0)+' мс\nСкорость: '+(100/(E-S)).toExponential(3)+' % за мс')}
+advUI();
+let unlocked=false;
+const HASH='e8b216cb4b34828118357407ce953b9dbc64e028f0db19c911bc1017f145fb53';
+const sha=async t=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+$('gear').onclick=()=>{$('tp').classList.remove('open');if(unlocked){$('menu').classList.toggle('open');return}const l=$('lock');l.classList.toggle('open');if(l.classList.contains('open'))$('code').focus()};
+const tryCode=async()=>{try{if(await sha($('code').value.trim().toLowerCase())===HASH){unlocked=true;$('lock').classList.remove('open');$('code').value='';$('cerr').textContent='';$('menu').classList.add('open')}else{$('cerr').textContent='Неверный код';$('code').select()}}catch(e){$('cerr').textContent='Не удалось проверить код'}};
+$('unlock').onclick=tryCode;$('code').onkeydown=e=>{if(e.key==='Enter')tryCode()};
+$('theme').value=cfg.theme;
+$('theme').onchange=()=>{cfg.theme=$('theme').value;save()};
+$('dt').oninput=()=>{const t=dateSet();$('pv1').textContent=t==null?'—':t>=DEF.end?'Таймер уже закончится':'Останется: '+parts(new Date(t),new Date(DEF.end)).slice(0,5).join(' : ')+' (г : мес : дн : ч : мин)'};
+[0,1,2,3,4,5].forEach(i=>$('d'+i).oninput=()=>{const t=durSet();$('pv2').textContent=t==null?'—':'Дата на сайте станет: '+ds(t)});
+$('setDate').onclick=()=>apply(dateSet());
+$('setDur').onclick=()=>apply(durSet());
+document.querySelectorAll('#menu input').forEach(i=>i.onkeydown=e=>{if(e.key==='Enter')(i.id==='dt'?$('setDate'):$('setDur')).click()});
+$('reset').onclick=()=>{cfg={off:0,theme:'auto',adv:cfg.adv};$('theme').value='auto';$('err').textContent='';save()};
+tick();
+</script>
+</body>
+</html>
